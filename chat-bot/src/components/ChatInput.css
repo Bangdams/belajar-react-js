@@ -1,0 +1,13 @@
+.inputUser {
+  width: 300px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border-width: 1px;
+  font-size: 15px;
+  flex-grow: 1;
+}
+
+.inputUserContainer {
+  display: flex;
+  margin-bottom: 60px;
+}

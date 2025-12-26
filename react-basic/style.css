@@ -1,0 +1,94 @@
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+button {
+  padding: 12px;
+  margin: 0 10px;
+  width: 80px;
+  border-radius: 10px;
+  background-color: rgb(25, 135, 84);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:active {
+  background-color: rgb(4, 108, 4);
+  border: 1px solid rgb(4, 108, 4);
+}
+
+.container {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputUser {
+  width: 300px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border-width: 1px;
+  font-size: 15px;
+  flex-grow: 1;
+}
+
+.inputUserContainer {
+  display: flex;
+  margin-bottom: 60px;
+}
+
+.messageUser {
+  display: flex;
+  margin: 40px 0 0;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.responseText {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  font-size: 17px;
+  margin: 0 5px;
+}
+
+.responseText > p {
+  margin: 0;
+}
+
+.messageRobot {
+  display: flex;
+  align-items: center;
+}
+
+.coba {
+  display: flex;
+}
+
+.messageUser > input {
+  margin: 0 20px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid grey;
+}
+
+.chat-messages-container {
+  flex-grow: 1;
+  overflow: scroll;
+  scrollbar-width: none;
+  margin-bottom: 20px;
+}
+
+/* profile */
+.profilUser {
+  width: 40px;
+}

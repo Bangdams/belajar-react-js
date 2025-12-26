@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chat Boot</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function Button({ counter, setCounter, reset = false }) {
+        function clickCounter() {
+          {
+            reset ? setCounter(0) : setCounter(counter + 1);
+          }
+        }
+
+        return (
+          <>
+            <button onClick={clickCounter}>
+              {reset ? (
+                "Reset"
+              ) : (
+                <>
+                  Clicked {counter}
+                  {counter == 1 ? " time" : " times"}
+                </>
+              )}
+            </button>
+          </>
+        );
+      }
+
+      function MyApp() {
+        const [counter, setCounter] = React.useState(0);
+
+        return (
+          <>
+            <Button counter={counter} setCounter={setCounter} />
+            <Button counter={counter} setCounter={setCounter} />
+            <Button setCounter={setCounter} reset={true} />
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chat Boot</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/supersimpledev@8.0.1/chatbot.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      function ChatInput({ chatMessages, setChatMessages }) {
+        const [inputText, setInputText] = React.useState("");
+        const [loading, setLoading] = React.useState(false);
+
+        function isLoading(message) {
+          setChatMessages([
+            ...message,
+            { sender: "robot", message: "loading..", id: crypto.randomUUID() },
+          ]);
+
+          setLoading(true);
+        }
+
+        async function sendMessage() {
+          console.log("tidak bisa");
+          const message = [
+            ...chatMessages,
+            { sender: "user", message: inputText, id: crypto.randomUUID() },
+          ];
+
+          setChatMessages(message);
+          setInputText("");
+          isLoading(message);
+
+          const response = await Chatbot.getResponseAsync(inputText);
+
+          setChatMessages([
+            ...message,
+            { sender: "robot", message: response, id: crypto.randomUUID() },
+          ]);
+
+          setLoading(false);
+        }
+
+        function changeInput(event) {
+          setInputText(event.target.value);
+        }
+
+        function keyDown(e) {
+          {
+            e.key == "Enter" && !loading && sendMessage();
+          }
+
+          {
+            e.key == "Escape" && setInputText("");
+          }
+        }
+
+        return (
+          <>
+            <div className="inputUserContainer">
+              <input
+                type="text"
+                className="inputUser"
+                placeholder="Masukan Pesan Disini"
+                onChange={changeInput}
+                value={inputText}
+                onKeyDown={keyDown}
+              />
+              <button
+                onClick={sendMessage}
+                disabled={inputText === "" || loading}
+              >
+                Kirim
+              </button>
+            </div>
+          </>
+        );
+      }
+
+      function Message({ message, sender }) {
+        return (
+          <div className={sender === "user" ? "messageUser" : "messageRobot"}>
+            {sender === "robot" && (
+              <img
+                src="assets/robot-assistant.png"
+                alt="profile"
+                className="profilUser"
+              />
+            )}
+
+            <div className="responseText">
+              <p>{message}</p>
+            </div>
+
+            {sender === "user" && (
+              <img src="assets/user.png" alt="profile" className="profilUser" />
+            )}
+          </div>
+        );
+      }
+
+      function ChatMessage({ chatMessages }) {
+        const containerMessagesRef = React.useRef(null);
+
+        React.useEffect(() => {
+          const containerElem = containerMessagesRef.current;
+
+          if (containerElem) {
+            containerElem.scrollTop = containerElem.scrollHeight;
+          }
+        }, [chatMessages]);
+
+        return (
+          <div className={"chat-messages-container"} ref={containerMessagesRef}>
+            {chatMessages.map((data) => {
+              return (
+                <Message
+                  sender={data.sender}
+                  message={data.message}
+                  key={data.id}
+                />
+              );
+            })}
+          </div>
+        );
+      }
+
+      function HomePage() {
+        const [chatMessages, setChatMessages] = React.useState([
+          { sender: "user", message: "halo", id: "1" },
+          { sender: "robot", message: "halo juga", id: "2" },
+          { sender: "user", message: "selamat pagi", id: "3" },
+          { sender: "robot", message: "pagi", id: "4" },
+        ]);
+
+        return (
+          <>
+            <div className="container">
+              <ChatMessage chatMessages={chatMessages} />
+
+              <ChatInput
+                chatMessages={chatMessages}
+                setChatMessages={setChatMessages}
+              />
+            </div>
+          </>
+        );
+      }
+
+      function MyApp() {
+        return <HomePage />;
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+    </script>
+  </body>
+</html>

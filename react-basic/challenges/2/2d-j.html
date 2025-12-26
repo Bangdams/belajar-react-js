@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chat Boot</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function ProductDetails({ name, price, discount }) {
+        return (
+          <div style={{ margin: "0 20px" }}>
+            <p>{name}</p>
+
+            {discount ? (
+              <del>
+                <p>Price : {price}</p>
+              </del>
+            ) : (
+              <p>Price : {price}</p>
+            )}
+
+            {discount && <p>Discount price : {discount}</p>}
+            <button style={{ width: "100%" }}>Add Cart</button>
+          </div>
+        );
+      }
+
+      function MyApp() {
+        return (
+          <div style={{ display: "flex" }}>
+            <ProductDetails
+              name="Cotton socks"
+              price="$10.90"
+              discount="$6.00"
+            />
+            <ProductDetails name="Tennis balls" price="$6.00" />
+            <ProductDetails name="Plain T-Shirt" price="$3.90" />
+          </div>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+    </script>
+  </body>
+</html>

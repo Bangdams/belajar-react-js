@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chat Boot</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function InputText() {
+        const [text, setText] = React.useState("");
+
+        function changeInput(e) {
+          setText(e.target.value);
+        }
+
+        return (
+          <>
+            <input
+              type="text"
+              name="text"
+              onChange={changeInput}
+              value={text}
+            />
+
+            <Button setText={setText} reset={true} />
+            <Button setText={setText} />
+
+            <p>Hello {text}</p>
+          </>
+        );
+      }
+
+      function Button({ setText, reset = false }) {
+        function handleClick() {
+          {
+            reset ? setText("") : setText("Sadam");
+          }
+        }
+
+        return (
+          <>
+            <button onClick={handleClick}>{reset ? "Reset" : "Example"}</button>
+          </>
+        );
+      }
+
+      function MyApp() {
+        return (
+          <>
+            <InputText />
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+    </script>
+  </body>
+</html>

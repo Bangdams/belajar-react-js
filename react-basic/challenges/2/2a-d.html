@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Chat Boot</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      function InputForm({ type = "text", name, placeholder }) {
+        return (
+          <div>
+            <input type={type} name={name} placeholder={placeholder} />
+          </div>
+        );
+      }
+
+      function FormButton({ name }) {
+        return <button>{name}</button>;
+      }
+
+      function LoginForm() {
+        return (
+          <>
+            <InputForm name="email" placeholder="email" />
+            <InputForm type="password" name="password" placeholder="password" />
+            <FormButton name="Login" />
+            <FormButton name="Sign Up" />
+          </>
+        );
+      }
+
+      function MyApp() {
+        return (
+          <>
+            <p>Hello, welcome to my website</p>
+            <LoginForm />
+          </>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<MyApp />);
+    </script>
+  </body>
+</html>
