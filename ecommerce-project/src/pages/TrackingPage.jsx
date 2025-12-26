@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import "./Tracking.css";
-import { Header } from "./components/Header";
+import "./TrackingPage.css";
+import { Header } from "../components/Header";
 
-export function Tracking() {
+export function TrackingPage() {
   return (
     <>
       <title>Tracking</title>
